@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['prefix' => 'todo'], function () {
+    Route::post('/task', 'TodoController@createTask');
+    Route::get('/task', 'TodoController@getTask');
+    Route::delete('/task/{id_todolist}', 'TodoController@deleteTask');
+    Route::patch('/task/{id_todolist}', 'TodoController@updateTask');
 });
+
