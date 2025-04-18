@@ -1,0 +1,318 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+body {
+    background-color: #000;
+    color: #0f0;
+    padding: 20px;
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    border: 1px solid #0f0;
+    padding: 20px;
+    box-shadow: 0 0 10px #0f0;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    text-shadow: 0 0 5px #0f0;
+}
+
+.terminal-header {
+    border-bottom: 1px solid #0f0;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.terminal-prompt::before {
+    content: "root@hackersystem:~$ ";
+}
+
+.terminal-prompt {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.blinking-cursor::after {
+    /*content: "_";*/
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.task-input {
+    width: 100%;
+    background-color: #000;
+    border: 1px solid #0f0;
+    color: #0f0;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.task-input:focus {
+    outline: none;
+    box-shadow: 0 0 5px #0f0;
+}
+
+.task-list {
+    list-style-type: none;
+}
+
+.task-item {
+    padding: 10px;
+    border-bottom: 1px dashed #0f0;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.task-item:hover {
+    background-color: #002200;
+}
+
+.task-checkbox {
+    margin-right: 10px;
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #0f0;
+    background-color: transparent;
+    position: relative;
+    cursor: pointer;
+}
+
+.task-checkbox:checked {
+    background-color: #0f0;
+}
+
+.task-checkbox:checked::after {
+    content: "✓";
+    position: absolute;
+    color: #000;
+    font-size: 16px;
+    top: -2px;
+    left: 3px;
+}
+
+.task-checkbox:checked + .task-text {
+    text-decoration: line-through;
+    color: #070;
+}
+
+.task-text {
+    flex-grow: 1;
+}
+
+.task-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.task-edit, .task-delete {
+    cursor: pointer;
+    padding: 0 5px;
+}
+
+.task-edit:hover {
+    text-shadow: 0 0 5px #0f0;
+}
+
+.task-delete:hover {
+    text-shadow: 0 0 5px #f00;
+    color: #f00;
+}
+
+/* 演示模式切換 */
+.demo-controls {
+    margin-top: 30px;
+    border-top: 1px solid #0f0;
+    padding-top: 20px;
+}
+
+.demo-title {
+    margin-bottom: 10px;
+}
+
+.demo-buttons {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.demo-button {
+    background-color: #000;
+    color: #0f0;
+    border: 1px solid #0f0;
+    padding: 5px 10px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.demo-button:hover {
+    background-color: #0f0;
+    color: #000;
+}
+
+/* 任務狀態展示 */
+#normal:target ~ .task-list .normal-state { display: flex; }
+#normal:target ~ .task-list .completed-state { display: none; }
+
+#completed:target ~ .task-list .normal-state { display: none; }
+#completed:target ~ .task-list .completed-state { display: flex; }
+
+/* 默認顯示普通狀態 */
+:not(#completed):not(#edit-modal):not(#delete-modal) ~ .task-list .normal-state { display: flex; }
+:not(#completed):not(#edit-modal):not(#delete-modal) ~ .task-list .completed-state { display: none; }
+
+/* 添加任務的區域 */
+.add-task-form {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.add-button {
+    background-color: #000;
+    color: #0f0;
+    border: 1px solid #0f0;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.add-button:hover {
+    background-color: #0f0;
+    color: #000;
+}
+
+/* 模態彈窗樣式 */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #000;
+    border: 2px solid #0f0;
+    box-shadow: 0 0 15px #0f0;
+    width: 80%;
+    max-width: 500px;
+    padding: 20px;
+    animation: glitch 0.3s ease-out;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #0f0;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.modal-title {
+    font-size: 1.2em;
+    text-shadow: 0 0 5px #0f0;
+}
+
+.modal-close {
+    cursor: pointer;
+    font-size: 1.5em;
+}
+
+.modal-close:hover {
+    text-shadow: 0 0 8px #f00;
+    color: #f00;
+}
+
+.modal-body {
+    margin-bottom: 15px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #0f0;
+}
+
+.modal-button {
+    background-color: #000;
+    color: #0f0;
+    border: 1px solid #0f0;
+    padding: 5px 10px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.modal-button:hover {
+    background-color: #0f0;
+    color: #000;
+}
+
+.modal-button.cancel:hover {
+    background-color: #700;
+    border-color: #f00;
+    color: #fff;
+}
+
+.modal-edit-input {
+    width: 100%;
+    background-color: #000;
+    border: 1px solid #0f0;
+    color: #0f0;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* 模態彈窗顯示控制 */
+#edit-modal:target {
+    display: flex;
+}
+
+#delete-modal:target {
+    display: flex;
+}
+
+/* 動畫效果 */
+@keyframes glitch {
+    0% {
+        transform: translate(-2px, 0);
+        opacity: 0.8;
+    }
+    20% {
+        transform: translate(2px, -2px);
+    }
+    40% {
+        transform: translate(-2px, 2px);
+    }
+    60% {
+        transform: translate(2px, 0);
+        opacity: 1;
+    }
+    80% {
+        transform: translate(-1px, -1px);
+    }
+    100% {
+        transform: translate(0, 0);
+    }
+}
