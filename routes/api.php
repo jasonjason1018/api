@@ -21,3 +21,6 @@ Route::group(['prefix' => 'todo'], function () {
     Route::patch('/task/{id_todolist}', 'TodoController@updateTask');
 });
 
+Route::group(['prefix' => 'account'], function () {
+    Route::post('/', 'AccountController@createAccount');
+});
