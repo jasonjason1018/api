@@ -19,6 +19,13 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.response.use(
     response => response,
     error => {
+        const status = error.response?.status;
+        const message = error.response?.data?.message || '';
+
+        if (status === 401) {
+            window.location.href = '/';
+        }
+
         console.error('API Error:', error.response?.data || error.message);
         return Promise.reject(error);
     }

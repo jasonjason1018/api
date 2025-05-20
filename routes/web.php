@@ -12,10 +12,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('/todo', function () {
-    return view('todolist.todolist');
+Route::view('/', 'login');
+Route::group(['middleware' => 'token'], function () {
+    Route::view('/dashboard', 'dashboard');
+    Route::view('/todo', 'todolist.todolist');
 });

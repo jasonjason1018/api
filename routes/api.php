@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Cookie;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +24,9 @@ Route::group(['prefix' => 'todo'], function () {
 
 Route::group(['prefix' => 'account'], function () {
     Route::post('/', 'AccountController@createAccount');
+    Route::post('/login', 'AccountController@login');
+});
+
+Route::delete('/cookie', function () {
+    return response('success')->withCookie(Cookie::forget('access_token', '/', null));
 });

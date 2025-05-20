@@ -25,4 +25,36 @@ class AccountController extends Controller
 
         return $accountService->createAccount($accountData);
     }
+
+    public function login(Request $request)
+    {
+        $accountData = $request->input();
+
+        $validator = Validator::make($accountData, [
+            'username' => 'required|string',
+            'password' => 'required|string'
+        ]);
+
+        if ($validator->fails()) {
+            throw new \Exception('Invalid Parameter Request');
+        }
+
+        $account = Account::where('username', '=', $accountData['username'])
+            ->where('status', '=', Account::STATUS['enabled'])
+            ->first();
+
+        if (!$account) {
+            throw new \Exception('Invalid username.');
+        }
+
+        $isPasswordCorrect = $account->checkPassword($accountData['password']);
+
+        if (!$isPasswordCorrect) {
+            throw new \Exception('Invalid password.');
+        }
+
+        $result['access_token'] = $account->generateAccessToken();
+
+        return $result;
+    }
 }

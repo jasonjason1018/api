@@ -9,6 +9,9 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="icon" href="/images/favicon.ico">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/axios.min.js"></script>
+    <script src="/js/axios-config.js"></script>
 
     <!-- Styles -->
     <style>
@@ -138,6 +141,20 @@
         .access-status span {
             animation: blink 1.5s infinite;
         }
+
+        .demo-button {
+            background-color: #000;
+            color: #0f0;
+            border: 1px solid #0f0;
+            padding: 5px 10px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .demo-button:hover {
+            background-color: #0f0;
+            color: #000;
+        }
     </style>
 </head>
 <body>
@@ -152,10 +169,11 @@
 
         <div class="links">
             <a href="/todo">TODO LIST</a>
+            <a href="javascript:void(0)" id="logout">LOGOUT</a>
         </div>
     </div>
 </div>
-
+<script src="/js/dashboard.js"></script>
 <div class="version-info">
     v5.7.29 | ROOT:ENABLED | SERVER:COMPROMISED
 </div>

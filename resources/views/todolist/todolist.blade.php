@@ -13,7 +13,7 @@
 <body>
 <div class="container">
     <div class="terminal-header">
-        <a href="/" class="demo-button">TO INDEX</a>
+        <a href="/dashboard" class="demo-button">TO INDEX</a>
         <h1>TODO LIST</h1>
         <span class="terminal-prompt blinking-cursor">楷右的任務管理系統 v1.0 已啟動</span>
     </div>

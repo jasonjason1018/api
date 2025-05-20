@@ -19,6 +19,12 @@ class Controller extends BaseController
 
         $return = new ReturnDecorator($result);
 
-        return $return->decorate();
+        $response = response($return->decorate());
+
+        if (isset($result['access_token'])) {
+            $response = $response->cookie('access_token', $result['access_token'], 60, '/', null, false, true);
+        }
+
+        return $response;
     }
 }
